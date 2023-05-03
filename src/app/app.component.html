@@ -1,34 +1,43 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div style="text-align:center;">
   <h1>
-    TODO APP
+    TO-DO APP
   </h1>
-
-
-  
     <br>
    <input *ngIf="mostraInput"
    placeholder="Insira aqui a tarefa" [(ngModel)]="pessoa.tarefa"
    />
    <br>
-   <input *ngIf="mostraInput"
-   placeholder="Insira aqui a tarefa" [(ngModel)]="pessoa.categoria"
-   />
+   <select [(ngModel)]="pessoa.categoria">
+    <option value="">Selecione uma opção</option>
+    <option value="To do">To Do</option>
+    <option value="Doing">Doing</option>
+    <option value="Done">Done</option>
+  </select>
    <br>
   
   <button (click)="cadastrarusuario()" >Cadastrar</button>
+  
   <div *ngFor="let usuario of usuarios; index as indice">
-    
-    <h4>
-    Tarefa: {{indice}}
-    <br>
-    O que fazer? : {{usuario.tarefa}}
-    <br>
-    Categoria: {{usuario.categoria}}
-    <div *ngFor="let usuario of usuarios">
-      <button (click)="removerUsuario()">Excluir</button>
-    </div>
-  </h4>
+    <h4 style="background-color: rgb(183, 211, 202);">
+      Tarefa: {{indice}}
+      <br>
+      O que fazer? : {{usuario.tarefa}}
+      <br>
+      Categoria: {{usuario.categoria}}
+      <br>
+      Quer mudar o andamento da tarefa?
+      <select [(ngModel)]="usuario.novacategoria">
+        <option value="">Selecione uma opção</option>
+        <option value="To do">To Do</option>
+        <option value="Doing">Doing</option>
+        <option value="Done">Done</option>
+      </select>
+      <div>
+        <button (click)="atualizarTarefa(usuario)">Atualizar</button>
+        <button (click)="removerUsuario(usuario)">Excluir</button>
+      </div>
+    </h4>
   </div>
 
 
