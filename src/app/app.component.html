@@ -1,9 +1,11 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<div class="fundo">
 <div style="text-align:center;">
-  <h1>
+  <h1 class="fundo">
     TO-DO APP
   </h1>
+    </div>
     <br>
+    <div style="text-align:center">
    <input *ngIf="mostraInput"
    placeholder="Insira aqui a tarefa" [(ngModel)]="pessoa.tarefa"
    />
@@ -15,8 +17,68 @@
     <option value="Done">Done</option>
   </select>
    <br>
-  
   <button (click)="cadastrarusuario()" >Cadastrar</button>
+</div>
+  
+  <br>
+  <br>
+
+  <div style="text-align:center;">
+    <h2>
+      KANBAN
+    </h2>
+      </div>
+
+    <div class="todo">
+    <h3>TO DO</h3>
+    <ul *ngFor="let usuario of usuarios">
+        <span *ngIf="usuario.categoria === 'To do'">{{usuario.tarefa}}
+          <select [(ngModel)]="usuario.categoria"  
+      (change)= "atualizarTarefa(usuario, $event.target.value)">
+        <option value="">Selecione uma opção</option>
+        <option value="To do">To Do</option>
+        <option value="Doing">Doing</option>
+        <option value="Done">Done</option>
+      </select>
+        </span>
+    </ul>
+  </div>
+
+  <div class="doing">
+  <h3>DOING</h3>
+  <ul *ngFor="let usuario of usuarios">
+      <span *ngIf="usuario.categoria === 'Doing' ">{{usuario.tarefa}}
+        <select [(ngModel)]="usuario.categoria"  
+      (change)= "atualizarTarefa(usuario, $event.target.value)">
+        <option value="">Selecione uma opção</option>
+        <option value="To do">To Do</option>
+        <option value="Doing">Doing</option>
+        <option value="Done">Done</option>
+      </select>
+      </span>
+  </ul>
+  </div>
+  
+  <div class="done">
+    <h3>DONE</h3>
+    <ul *ngFor="let usuario of usuarios">
+        <span *ngIf="usuario.categoria === 'Done' ">{{usuario.tarefa}}
+          <select [(ngModel)]="usuario.categoria"  
+      (change)= "atualizarTarefa(usuario, $event.target.value)">
+        <option value="">Selecione uma opção</option>
+        <option value="To do">To Do</option>
+        <option value="Doing">Doing</option>
+        <option value="Done">Done</option>
+      </select>
+        </span>
+    </ul>
+  </div>
+
+  <div style="text-align:center;">
+    <h2>
+      LISTA DE TAREFAS
+    </h2>
+      </div>
   
   <div *ngFor="let usuario of usuarios; index as indice">
     <h4 style="background-color: rgb(183, 211, 202);">
@@ -27,18 +89,21 @@
       Categoria: {{usuario.categoria}}
       <br>
       Quer mudar o andamento da tarefa?
-      <select [(ngModel)]="usuario.novacategoria">
+      <select [(ngModel)]="usuario.categoria"  
+      (change)= "atualizarTarefa(usuario, $event.target.value)">
         <option value="">Selecione uma opção</option>
         <option value="To do">To Do</option>
         <option value="Doing">Doing</option>
         <option value="Done">Done</option>
       </select>
       <div>
-        <button (click)="atualizarTarefa(usuario)">Atualizar</button>
         <button (click)="removerUsuario(usuario)">Excluir</button>
       </div>
     </h4>
   </div>
+</div>
+
+
 
 
 

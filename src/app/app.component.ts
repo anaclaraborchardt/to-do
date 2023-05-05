@@ -65,10 +65,7 @@ limparForm(): void{
 }
 
 atualizarTarefa(usuario: Pessoa) {
-  if (usuario.categoria) {
-    usuario.categoria = usuario.categoria;
-  }
-  this.limparForm();
+  localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
 }
    
 }
