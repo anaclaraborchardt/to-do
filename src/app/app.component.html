@@ -37,6 +37,84 @@
     <br>
     <br>
  
+    <div style="text-align:center;">
+      <h2>
+        KANBAN
+      </h2>
+        </div>
+ 
+      <div class="todo">
+      <h3>TO DO</h3>
+      <ul *ngFor="let usuario of usuarios">
+          <span *ngIf="usuario.categoria === 'To do'">{{usuario.tarefa}}
+            <select [(ngModel)]="usuario.categoria"  
+        (change)= "atualizarTarefa(usuario, $event.target.value)">
+          <option value="">Selecione uma opção</option>
+          <option value="To do">To Do</option>
+          <option value="Doing">Doing</option>
+          <option value="Done">Done</option>
+          <option *ngFor="let categoria of categorias"
+      [value]="categoria">{{categoria}}</option>
+        </select>
+        <button (click)="removerUsuario(usuario)">Excluir</button>
+          </span>
+      </ul>
+    </div>
+ 
+    <div class="doing">
+    <h3>DOING</h3>
+    <ul *ngFor="let usuario of usuarios">
+        <span *ngIf="usuario.categoria === 'Doing' ">{{usuario.tarefa}}
+          <select [(ngModel)]="usuario.categoria"  
+        (change)= "atualizarTarefa(usuario, $event.target.value)">
+          <option value="">Selecione uma opção</option>
+          <option value="To do">To Do</option>
+          <option value="Doing">Doing</option>
+          <option value="Done">Done</option>
+          <option *ngFor="let categoria of categorias"
+      [value]="categoria">{{categoria}}</option>
+        </select>
+        <button (click)="removerUsuario(usuario)">Excluir</button>
+        </span>
+    </ul>
+    </div>
+   
+    <div class="done">
+      <h3>DONE</h3>
+      <ul *ngFor="let usuario of usuarios">
+          <span *ngIf="usuario.categoria === 'Done' ">{{usuario.tarefa}}
+            <select [(ngModel)]="usuario.categoria"  
+        (change)= "atualizarTarefa(usuario, $event.target.value)">
+          <option value="">Selecione uma opção</option>
+          <option value="To do">To Do</option>
+          <option value="Doing">Doing</option>
+          <option value="Done">Done</option>
+          <option *ngFor="let categoria of categorias"
+      [value]="categoria">{{categoria}}</option>
+        </select>
+        <button (click)="removerUsuario(usuario)">Excluir</button>
+          </span>
+      </ul>
+    </div>
+
+    <div class="done">
+      <h3>{{categoria}}</h3>
+      <ul *ngFor="let usuario of usuarios">
+          <span *ngIf="usuario.categoria == categorias ">{{usuario.tarefa}}
+            <select [(ngModel)]="usuario.categoria"  
+        (change)= "atualizarTarefa(usuario, $event.target.value)">
+          <option value="">Selecione uma opção</option>
+          <option value="To do">To Do</option>
+          <option value="Doing">Doing</option>
+          <option value="Done">Done</option>
+          <option *ngFor="let categoria of categorias"
+      [value]="categoria">{{categoria}}</option>
+        </select>
+        <button (click)="removerUsuario(usuario)">Excluir</button>
+          </span>
+      </ul>
+    </div>
+    
     <div class = "todo">
       <div *ngFor="let usuario of usuarios">
         <h3>Categoria: {{ usuario.categoria }}</h3>
