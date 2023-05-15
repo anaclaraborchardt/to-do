@@ -1,0 +1,14 @@
+.fundo{
+    background-color:rgb(214, 214, 213) ;
+}
+
+.novasDivs {
+    background-color: rgb(163, 201, 188);
+    display: flex; flex-wrap: wrap; width:100%; height:auto;
+    flex-wrap: wrap;
+}
+.botao{
+  background-color: rgb(163, 201, 188);
+    width: 150px;;
+    
+}

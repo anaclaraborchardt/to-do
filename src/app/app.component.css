@@ -1,23 +1,8 @@
-.fundo{
-    background-color:rgb(214, 214, 213) ;
+.botoes{
+    background-color: rgb(163, 201, 188); display: flex; flex-wrap: wrap;  height:auto;
+    margin-right: 10px; width: 100px;
 }
-
-.todo{
-    width: 33%; height:auto;background-color: rgb(117, 141, 133); 
-    display: inline-block; vertical-align: top;
-}
-
-.done{
-    width: 33%; height:auto;background-color: rgb(165, 199, 187);
-    display:inline-block;  vertical-align: top;
-}
-
-.doing{
-    width: 33%; height:auto;background-color: rgb(157, 175, 169);
-    display:inline-block ;  vertical-align: top;
-}
-.novasDivs {
-    background-color: rgb(163, 201, 188);
-    display: flex; flex-wrap: wrap; width:100%; height:auto;
-    flex-wrap: wrap;
-}
+.botaoDiv {
+    display: flex;
+  }
+  

@@ -1,0 +1,8 @@
+<div style="text-align:center" class="fundo">
+    <h3 class="gerenciador">Insira novas categorias em seu Gerenciador de Tarefas</h3>
+    <input *ngIf="mostraCatInput" placeholder="Insira uma nova categoria" [(ngModel)]="novaCategoria">
+    <br>
+    <br>
+    <button class="botao" (click)="adicionarCategoria()">Adicionar</button>
+    <br>
+    </div>
