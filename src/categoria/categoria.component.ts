@@ -26,8 +26,5 @@ export class CategoriaComponent {
         }
       }
 
-      removerCategoria(indice): void {
-        this.categorias.splice(indice, 1)
-        localStorage.setItem('categorias', JSON.stringify(this.categorias));
-      }
+
 }

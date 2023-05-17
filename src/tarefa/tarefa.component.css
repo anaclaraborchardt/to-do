@@ -4,8 +4,9 @@
 
 .novasDivs {
     background-color: rgb(163, 201, 188);
-    display: flex; flex-wrap: wrap; width:100%; height:auto;
-    flex-wrap: wrap;
+    display: flex; 
+    width:100%; 
+    justify-content: space-between;
 }
 .botao{
   background-color: rgb(163, 201, 188);

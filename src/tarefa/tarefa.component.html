@@ -21,16 +21,18 @@
 
   <div class="novasDivs">
     <div *ngFor="let categoria of categorias">
-      <h1>{{categoria}}</h1>
+      <h1 style="color:rgb(12, 99, 94)">{{categoria}}</h1>
 
       <div *ngFor="let usuario of usuarios">
         <div *ngIf="usuario.categoria == categoria">
           <h3>Tarefa: {{ usuario.tarefa }}</h3>
+          Deseja trocar a categoria?
           <select [(ngModel)]="usuario.categoria" (change)="atualizarTarefa(usuario, $event.target.value)">
             <option value="">Selecione uma opção</option>
             <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
           </select>
-          <button (click)="removerUsuario(usuario)">Excluir</button>
+          <br>
+          <button (click)="removerUsuario(usuario)">Excluir Tarefa</button>
         </div>
       </div>
     </div>
