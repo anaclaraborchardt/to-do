@@ -11,19 +11,18 @@ export class CategoriaComponent {
     mostraCatInput: boolean = true;
     novaCategoria: string;
     categorias: string[] = [];
+    ngOnInit() {
+      const categoriasSalvas = localStorage.getItem('categorias');
+      if (categoriasSalvas) {
+        this.categorias = JSON.parse(categoriasSalvas);
+      }
+    }
   
     adicionarCategoria(novaCategoria:string) {
         if (this.novaCategoria !== '') {
           this.categorias.push(this.novaCategoria);
           localStorage.setItem('categorias', JSON.stringify(this.categorias));
           this.novaCategoria = '';
-        }
-      }
-
-      ngOnInit() {
-        const categoriasSalvas = localStorage.getItem('categorias');
-        if (categoriasSalvas) {
-          this.categorias = JSON.parse(categoriasSalvas);
         }
       }
 
