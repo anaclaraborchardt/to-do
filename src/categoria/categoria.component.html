@@ -6,3 +6,12 @@
     <button class="botao" (click)="adicionarCategoria()">Adicionar</button>
     <br>
     </div>
+
+    <div>
+        <h3>As categorias adicionadas foram:</h3>
+        <div *ngFor="let categoria of categorias">
+            <div>
+            <h3>{{categoria}}</h3>
+            <button class="botao" (click)="removerCategoria()">Remover</button>
+        </div>
+    </div>
