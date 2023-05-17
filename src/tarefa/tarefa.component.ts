@@ -40,7 +40,6 @@ export class TarefaComponent {
       tarefa:'',
       categoria:'',
     };
-    this.filtrarTarefas(this.pessoa.categoria);
   }
   ngOnInit() {
     const usuario = localStorage.getItem('usuarios');
@@ -51,7 +50,6 @@ export class TarefaComponent {
     if (categoriasSalvas) {
       this.categorias = JSON.parse(categoriasSalvas);
     }
-    this.filtrarTarefas('');
   }
   
   removerUsuario(usuario: Pessoa): void {
@@ -73,14 +71,5 @@ export class TarefaComponent {
   atualizarTarefa(usuario: Pessoa, novaCategoria: string) {
     usuario.categoria = novaCategoria;
     localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
-  }
-  
-  filtrarTarefas (categoria: string): void {
-    if (categoria === '') {
-      this.tarefasFiltradas = this.usuarios;
-    } else {
-      this.tarefasFiltradas = this.usuarios.filter(usuario => usuario.categoria === categoria);
-    }
-  }
-    
+  }    
 }
