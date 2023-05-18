@@ -11,4 +11,5 @@
         <h3>As categorias adicionadas foram:</h3>
         <div *ngFor="let categoria of categorias">
             <h3>{{categoria}}</h3>
+            <button (click)="removerCategoria(categoria)">Remover</button>
     </div>

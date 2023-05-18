@@ -25,6 +25,13 @@ export class CategoriaComponent {
           this.novaCategoria = '';
         }
       }
+      removerCategoria(categoria: string) {
+        const index = this.categorias.indexOf(categoria);
+        if (index !== -1) {
+          this.categorias.splice(index, 1);
+          localStorage.setItem('categorias', JSON.stringify(this.categorias));
+        }
+      }
 
 
 }
