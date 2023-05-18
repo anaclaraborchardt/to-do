@@ -1,15 +1,32 @@
-.fundo{
-    background-color:rgb(214, 214, 213) ;
-}
-
 .novasDivs {
-    background-color: rgb(163, 201, 188);
-    display: flex; 
-    width:100%; 
-    justify-content: space-between;
+        padding: 10px;
+        margin-bottom: 10px; 
+        background-color: rgb(163, 201, 188);  
+        border: 3px solid  rgb(12, 99, 94);
 }
 .botao{
   background-color: rgb(163, 201, 188);
-    width: 150px;;
+  width: 200px;
+  height: 50px;
     
 }
+.todo{
+    text-align:center; 
+    font-family:'Courier New', Courier, monospace;
+    font-size: large;
+}
+.input{
+  width: 200px;
+  height: 50px;
+  border: 3px solid  rgb(12, 99, 94);
+  background-color:white ;
+  margin-right: 1%
+}
+.select{
+    width: 180px;
+    height: 57px;
+    border: 3px solid  rgb(12, 99, 94);
+    background-color:white ;
+    margin-right: 1%
+}
+

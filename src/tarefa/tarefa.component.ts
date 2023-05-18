@@ -71,5 +71,6 @@ export class TarefaComponent {
   atualizarTarefa(usuario: Pessoa, novaCategoria: string) {
     usuario.categoria = novaCategoria;
     localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
-  }    
+  }   
+
 }

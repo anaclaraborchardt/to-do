@@ -1,8 +1,13 @@
 .botoes{
-    background-color: rgb(163, 201, 188); display: flex; flex-wrap: wrap;  height:auto;
+    background-color: white; display: flex; flex-wrap: wrap;  height:auto;
     margin-right: 10px; width: 100px;
+    color:rgb(12, 99, 94);
+    border: 3px solid  rgb(12, 99, 94);
 }
 .botaoDiv {
     display: flex;
+    padding: 10px;
+    height: 40px;
+    background-color: rgb(163, 201, 188);  
   }
   

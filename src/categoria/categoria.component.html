@@ -1,5 +1,7 @@
-<div style="text-align:center" class="fundo">
-    <h3 class="gerenciador">Insira novas categorias em seu Gerenciador de Tarefas</h3>
+<div style="text-align:center">
+    <div class="todo">
+        <h1 style="color:rgb(12, 99, 94);"> CATEGORIAS </h1>
+      </div>
     <input *ngIf="mostraCatInput" placeholder="Insira uma nova categoria" [(ngModel)]="novaCategoria">
     <br>
     <br>
@@ -9,7 +11,9 @@
 
     <div>
         <h3>As categorias adicionadas foram:</h3>
-        <div *ngFor="let categoria of categorias">
+        <div style="display: flex; flex-wrap: wrap;">
+        <div *ngFor="let categoria of categorias" class="novasDivs">
             <h3>{{categoria}}</h3>
             <button (click)="removerCategoria(categoria)">Remover</button>
+        </div>
     </div>
