@@ -1,11 +1,7 @@
-<div class="todo">
-  <h1 style="color:rgb(12, 99, 94);"> TO-DO APP </h1>
-</div>
-
 <div style="text-align:center">
-  <input *ngIf="mostraInput" placeholder="Insira aqui a tarefa" [(ngModel)]="pessoa.tarefa" 
-  class="input"autocomplete="off" />
-  <select class="select"[(ngModel)]="pessoa.categoria">
+  <input *ngIf="mostraInput" placeholder="Insira aqui a tarefa" [(ngModel)]="pessoa.tarefa"
+   class="input" autocomplete="off" />
+  <select class="select" [(ngModel)]="pessoa.categoria">
     <option value="">Selecione uma categoria</option>
     <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
   </select>
@@ -14,22 +10,20 @@
 
 <br>
 
-<div style="display: flex; flex-wrap: wrap;">
-  <div *ngFor="let categoria of categorias" style="flex-basis: 24%; margin-right: 1%;">
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
+  <div class ="width"*ngFor="let categoria of categorias" (dragover)="executaDrop($event, categoria)" (drop)="drop($event, categoria)">
     <div class="novasDivs">
       <h1 style="color:rgb(12, 99, 94);">{{categoria}}</h1>
-      <div *ngFor="let usuario of usuarios">
-        <div *ngIf="usuario.categoria == categoria">
-          <h3>Tarefa: {{ usuario.tarefa }}</h3>
-          Deseja trocar a categoria?
-          <br>
-          <select [(ngModel)]="usuario.categoria" (change)="atualizarTarefa(usuario, $event.target.value)">
-            <option value="">Selecione uma opção</option>
-            <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
-          </select>
-          <br>
-          <button (click)="removerUsuario(usuario)">Excluir Tarefa</button>
-        </div>
+      <div *ngFor="let usuario of TarefasCategoria(categoria)"draggable="true" (dragstart)="transferirTarefa($event, usuario)">
+        <h3>Tarefa: {{ usuario.tarefa }}</h3>
+        Deseja trocar a categoria?
+        <br>
+        <select [(ngModel)]="usuario.categoria" (change)="atualizarTarefa(usuario, $event.target.value)">
+          <option value="">Selecione uma opção</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
+        </select>
+        <br>
+        <button (click)="removerUsuario(usuario)">Excluir Tarefa</button>
       </div>
     </div>
   </div>
