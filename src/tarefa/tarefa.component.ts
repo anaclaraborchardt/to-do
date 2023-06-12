@@ -20,6 +20,7 @@ export class TarefaComponent {
   tarefasFiltradas: Pessoa[] = [];
   tarefaDrop: Pessoa;
   categoriaDrop: string;
+  indiceNovo: number;
 
   pessoa: Pessoa = {
     tarefa: '',
@@ -73,26 +74,33 @@ export class TarefaComponent {
     localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
   }
 
-  executaDrop(event: DragEvent, categoria: string): void {
+  dragover(categoriaD: string, event: Event): void {
     event.preventDefault();
+    this.categoriaDrop = categoriaD;
   }
 
-  drop(event: DragEvent, categoria: string): void {
+  drag(tarefaD: Pessoa): void {
+    this.tarefaDrop = tarefaD;
+  }
+
+  drop(event: Event): void {
     event.preventDefault();
 
-    const tarefaArrastada = event.dataTransfer.getData('text/plain');
-    const tarefa = this.usuarios.find((usuario) => usuario.tarefa === tarefaArrastada);
-    if (tarefa) {
-      tarefa.categoria = categoria;
-      localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
-    }
+    this.tarefaDrop.categoria = this.categoriaDrop;
+
+    this.ajustarPosicao();
   }
 
-  TarefasCategoria(categoria: string): Pessoa[] {
-    return this.usuarios.filter((usuario) => usuario.categoria === categoria);
+  ajustarPosicao(): void {
+    this.usuarios.splice(this.usuarios.indexOf(this.tarefaDrop), 1);
+    this.usuarios.splice(this.indiceNovo, 0, this.tarefaDrop);
+
+    localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
   }
 
-  transferirTarefa(event: DragEvent, usuario: Pessoa): void {
-    event.dataTransfer.setData('text/plain', usuario.tarefa);
+  pegaIndice(indice: number, event: Event): void {
+    event.preventDefault();
+    this.indiceNovo = indice;
   }
 }
+

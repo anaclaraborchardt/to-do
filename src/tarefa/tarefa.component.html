@@ -11,19 +11,23 @@
 <br>
 
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
-  <div class ="width"*ngFor="let categoria of categorias" (dragover)="executaDrop($event, categoria)" (drop)="drop($event, categoria)">
+  <div (dragover)="dragover(categoria, $event)" (drop)="drop($event)"
+  *ngFor="let categoria of categorias; let i = index" class="categoria-coluna">
     <div class="novasDivs">
       <h1 style="color:rgb(12, 99, 94);">{{categoria}}</h1>
-      <div *ngFor="let usuario of TarefasCategoria(categoria)"draggable="true" (dragstart)="transferirTarefa($event, usuario)">
-        <h3>Tarefa: {{ usuario.tarefa }}</h3>
-        Deseja trocar a categoria?
-        <br>
-        <select [(ngModel)]="usuario.categoria" (change)="atualizarTarefa(usuario, $event.target.value)">
-          <option value="">Selecione uma opção</option>
-          <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
-        </select>
-        <br>
-        <button (click)="removerUsuario(usuario)">Excluir Tarefa</button>
+      <div draggable="true" *ngFor="let usuario of usuarios; let j = index" (dragstart)="drag(usuario)"
+      (drop)="pegaIndice(j, $event)">
+        <div *ngIf="usuario.categoria == categoria">
+          <h3>Tarefa: {{ usuario.tarefa }}</h3>
+          Deseja trocar a categoria?
+          <br>
+          <select [(ngModel)]="usuario.categoria" (change)="atualizarTarefa(usuario, $event.target.value)">
+            <option value="">Selecione uma opção</option>
+            <option *ngFor="let cat of categorias" [value]="cat">{{cat}}</option>
+          </select>
+          <br>
+          <button (click)="removerUsuario(usuario)">Excluir Tarefa</button>
+        </div>
       </div>
     </div>
   </div>
