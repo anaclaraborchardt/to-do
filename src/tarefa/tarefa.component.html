@@ -5,6 +5,16 @@
     <option value="">Selecione uma categoria</option>
     <option *ngFor="let categoria of categorias" [value]="categoria">{{categoria}}</option>
   </select>
+  <div *ngFor="let propriedade of listaPropriedades">
+    <input *ngIf="propriedade.tipo === 'string'" type="text" 
+    placeholder="Insira uma nova propriedade" [(ngModel)]="propriedade.insercao">
+    <input *ngIf="propriedade.tipo === 'number'" type="number" 
+    placeholder="Insira uma nova propriedade" [(ngModel)]="propriedade.insercao">
+    <select *ngIf="mostraInput && propriedade.tipo === 'selecao'" [(ngModel)]="propriedade.insercao">
+      <option value="">Seleção</option>
+      <option *ngFor="let item of propriedade.itensSelecao" [value]="item">{{ item }}</option>
+    </select>
+  </div>
   <button class="botao" (click)="cadastrarTarefa()">Cadastrar Tarefa</button>
 </div>
 
@@ -19,6 +29,14 @@
       (drop)="pegaIndice(j, $event)">
         <div *ngIf="usuario.categoria == categoria">
           <h3>Tarefa: {{ usuario.tarefa }}</h3>
+
+          <div *ngFor="let propriedade of usuario.listaPropriedades">
+            <div *ngIf="propriedade.insercao != null">
+              <div *ngIf="propriedade.insercao!= ''">{{ propriedade.nome }}: {{ propriedade.insercao }}</div>
+              
+            </div>
+          </div>
+
           Deseja trocar a categoria?
           <br>
           <select [(ngModel)]="usuario.categoria" (change)="atualizarTarefa(usuario, $event.target.value)">

@@ -6,12 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { CategoriaComponent } from 'src/categoria/categoria.component';
 import { TarefaComponent } from 'src/tarefa/tarefa.component';
 import { AppRoutingModule } from './app.routing.module';
+import { PropriedadeComponent } from 'src/propriedade/propriedade.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoriaComponent,
-    TarefaComponent
+    TarefaComponent,
+    PropriedadeComponent
   ],
   imports: [
     BrowserModule,

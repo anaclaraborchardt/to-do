@@ -1,0 +1,37 @@
+<div style="text-align:center">
+    <div class="todo">
+        <h1 style="color:rgb(12, 99, 94);"> PROPRIEDADES </h1>
+    </div>
+    <input *ngIf="mostraInput" placeholder="Insira uma nova propriedade" [(ngModel)]="novaPropriedade">
+    <br>
+    <select [(ngModel)]="propriedade.tipo">
+        <option value="">Tipo da propriedade</option>
+        <option value="string">Texto</option>
+        <option value="number">Número</option>
+        <option value="selecao">Seleção</option>
+    </select>
+    <br>
+    <textarea *ngIf="propriedade.tipo === 'selecao'" placeholder="Insira os itens separados por quebras de linha" [(ngModel)]="itensSelecao"></textarea>
+    <br>
+    <button class="botao" (click)="cadastrarPropriedades()">Adicionar</button>
+    <br>
+</div>
+
+<div *ngFor="let propriedade of listaPropriedades; index as indice" class="novasDivs">
+    <div *ngIf="propriedade.tipo"></div>
+    <h3>{{ propriedade.nome }} {{ propriedade.tipo }}</h3>
+    <div *ngIf="propriedade.tipo === 'selecao'">
+        <ul>
+            <li *ngFor="let item of propriedade.itensSelecao">{{ item }}</li>
+        </ul>
+    </div>
+    <button (click)="removerUsuario(propriedade)">Remover</button>
+    <button (click)="adicionarOpcao()">Adicionar Opção</button>
+    <div *ngIf="adicionarOpcao()">
+    <div *ngFor="let opcao of propriedade.itensSelecao">
+        {{ opcao }}
+    </div>
+    <br>
+    <input *ngIf="mostraEditarOpcao" placeholder="Nova Opção" [(ngModel)]="novaOpcao">
+</div>
+</div>

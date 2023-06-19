@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 interface Pessoa {
   tarefa: string;
   categoria: string;
+  listaPropriedades?:any;
 }
 
 @Component({
@@ -21,26 +22,35 @@ export class TarefaComponent {
   tarefaDrop: Pessoa;
   categoriaDrop: string;
   indiceNovo: number;
+  listaPropriedades: any []=[]
 
   pessoa: Pessoa = {
     tarefa: '',
     categoria: '',
+    listaPropriedades:''
   };
 
   cadastrarTarefa(): void {
+    const propriedadescadastro = this.listaPropriedades.map(propriedade => 
+      ({ ...propriedade, insercao: propriedade.insercao }));
     const usuario: Pessoa = {
       tarefa: this.pessoa.tarefa,
       categoria: this.pessoa.categoria,
+      listaPropriedades:propriedadescadastro
     };
 
     this.usuarios.push(usuario);
     this.limparForm();
     localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
 
-    this.pessoa = {
-      tarefa: '',
-      categoria: '',
-    };
+    for (let propriedade of this.listaPropriedades) {
+      propriedade.insercao = '';
+    }
+    
+    this.pessoa.tarefa='';
+    for (let propriedade of this.listaPropriedades) {
+      propriedade.insercao = ''; 
+    }
   }
 
   ngOnInit() {
@@ -52,7 +62,11 @@ export class TarefaComponent {
     if (categoriasSalvas) {
       this.categorias = JSON.parse(categoriasSalvas);
     }
+    const propriedadesSalvas = localStorage.getItem('listaPropriedades');
+    if (propriedadesSalvas) {
+      this.listaPropriedades = JSON.parse(propriedadesSalvas);
   }
+}
 
   removerUsuario(usuario: Pessoa): void {
     const indice = this.usuarios.indexOf(usuario);
