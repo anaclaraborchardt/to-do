@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { users } from 'src/data/users';
+import { user } from 'src/models/users/user';
+import { UserRepository } from 'src/repositories/user.respository';
 
 interface Pessoa{
 
@@ -82,6 +85,28 @@ adicionarCategoria(novaCategoria:string) {
   }
 }
 
-   
+private userId: string = 'joao.silva';
+private users: user[] = []
+
+constructor(private userRepository: UserRepository){
+  this.users = this.userRepository.getUsers()
+  
+  console.log(this.getUsuarioLogado())
+}
+
+private getUsuarioLogado(): user | undefined{
+return this.users.find ((user) => {
+  return user.id === this.userId
+} )
+}
+
+//adicionarTarefa(): void{
+ // if(!this.getUsuarioLogado()?.cardPermissions.some((permission)=>{
+ //   return permission === 'Add'
+//  })){
+ //  console.log("não pode cadastrar")
+ // }
+//}
+ 
 }
 
