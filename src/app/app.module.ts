@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { PropriedadeComponent } from 'src/propriedade/propriedade.component';
 import { UserRepository } from 'src/repositories/user.respository';
 
+
 @NgModule({
   declarations: [
     AppComponent,

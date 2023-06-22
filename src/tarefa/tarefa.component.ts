@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { user } from 'src/models/users/user';
+import { UserRepository } from 'src/repositories/user.respository';
+
 
 interface Pessoa {
   tarefa: string;
@@ -94,6 +97,9 @@ export class TarefaComponent {
   }
 
   drag(tarefaD: Pessoa): void {
+    if (!this.hasPermission('Edit')) {
+      return; // Interrompe o processo de arraste se não tiver permissão
+    }
     this.tarefaDrop = tarefaD;
   }
 
@@ -116,5 +122,70 @@ export class TarefaComponent {
     event.preventDefault();
     this.indiceNovo = indice;
   }
+
+  atualizarDrag(){
+    if (!this.hasPermission('MoveCard')) {
+      alert('Não pode cadastrar');
+      return;
+    }
+    alert('Pode cadastrar');
+  }
+
+  user!: user
+
+
+private userId: string = 'diogo.defante';
+private users: user[] = []
+
+
+constructor(private userRepository: UserRepository){
+  this.users = this.userRepository.getUsers();
+    this.user = this.getUsuarioLogado();
+    console.log(this.user);
 }
+
+adicionarTarefa(): void {
+  if (!this.hasPermission('Add')) {
+    alert('Não pode cadastrar');
+    return;
+  }
+  alert('Pode cadastrar');
+}
+
+
+editarTarefa(): void {
+  if (!this.hasPermission('Edit')) {
+    alert('Não pode cadastrar');
+    return;
+  }
+  alert('Pode cadastrar');
+}
+
+
+removerTarefa(): void {
+  if (!this.hasPermission('Remove')) {
+    alert('Não pode cadastrar');
+    return;
+  }
+  alert('Pode cadastrar');
+}
+
+
+hasPermission(permission: string): boolean {
+  return this.user.cardPermissions.some((cardPermission) => {
+    return cardPermission === permission;
+  });
+}
+
+
+private getUsuarioLogado(): user {
+  return this.users.find((user) => {
+    return user.id === this.userId
+  }) as user;
+}
+
+
+}
+
+
 

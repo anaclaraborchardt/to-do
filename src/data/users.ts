@@ -17,14 +17,14 @@ export const users : user[]=[
 	"name": "henrique Santos",
 	"groups": [],
 	"cardPermissions":[
-	 "Add"],
+	 "Edit"],
 	 "propertiesPermissions":[
 	 "Edit"]
 },
 {
 		
-	"id" : "igor.guimaraes",
-	"name": "igor Guimaraes",
+	"id" : "igor.oliveira",
+	"name": "igor Oliveira",
 	"groups": [],
 	"cardPermissions":[
 	 "Remove"],
@@ -34,8 +34,8 @@ export const users : user[]=[
 },
 {
 		
-	"id" : "igor.oliveira",
-	"name": "igor Oliveira",
+	"id" : "igor.guimaraes",
+	"name": "igor Guimaraes",
 	"groups": [],
 	"cardPermissions":[
 	 "MoveCard"],

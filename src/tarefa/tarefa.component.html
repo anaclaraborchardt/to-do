@@ -15,19 +15,20 @@
       <option *ngFor="let item of propriedade.itensSelecao" [value]="item">{{ item }}</option>
     </select>
   </div>
-  <button class="botao" (click)="cadastrarTarefa()">Cadastrar Tarefa</button>
+  <button class="botao" (click)="adicionarTarefa()" [disabled]="!hasPermission('Add')" (click)="cadastrarTarefa()">Cadastrar Tarefa</button>
+  
 </div>
 
 <br>
 
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px;">
-  <div (dragover)="dragover(categoria, $event)" (drop)="drop($event)"
+  <div  (dragover)="dragover(categoria, $event)" (drop)="drop($event)"
   *ngFor="let categoria of categorias; let i = index" class="categoria-coluna">
     <div class="novasDivs">
       <h1 style="color:rgb(12, 99, 94);">{{categoria}}</h1>
       <div draggable="true" *ngFor="let usuario of usuarios; let j = index" (dragstart)="drag(usuario)"
       (drop)="pegaIndice(j, $event)">
-        <div *ngIf="usuario.categoria == categoria">
+        <div *ngIf="usuario.categoria == categoria" (dragend)="atualizarDrag()">
           <h3>Tarefa: {{ usuario.tarefa }}</h3>
 
           <div *ngFor="let propriedade of usuario.listaPropriedades">
@@ -44,7 +45,7 @@
             <option *ngFor="let cat of categorias" [value]="cat">{{cat}}</option>
           </select>
           <br>
-          <button (click)="removerUsuario(usuario)">Excluir Tarefa</button>
+          <button  [disabled]="!hasPermission('Remove')" (click)="removerUsuario(usuario)">Excluir Tarefa</button>
         </div>
       </div>
     </div>

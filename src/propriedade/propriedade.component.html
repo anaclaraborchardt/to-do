@@ -13,7 +13,8 @@
     <br>
     <textarea *ngIf="propriedade.tipo === 'selecao'" placeholder="Insira os itens separados por quebras de linha" [(ngModel)]="itensSelecao"></textarea>
     <br>
-    <button class="botao" (click)="cadastrarPropriedades()">Adicionar</button>
+    <button class="botao"(click)="adicionarPropriedade()" [disabled]="!hasPermission2('Add')" 
+    (click)="cadastrarPropriedades()">Adicionar</button>
     <br>
 </div>
 
@@ -25,7 +26,7 @@
             <li *ngFor="let item of propriedade.itensSelecao">{{ item }}</li>
         </ul>
     </div>
-    <button (click)="removerUsuario(propriedade)">Remover</button>
+    <button  [disabled]="!hasPermission2('Remove')" (click)="removerUsuario(propriedade)">Remover</button>
     <button (click)="adicionarOpcao()">Adicionar Opção</button>
     <div *ngIf="adicionarOpcao()">
     <div *ngFor="let opcao of propriedade.itensSelecao">
