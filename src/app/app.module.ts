@@ -8,6 +8,8 @@ import { TarefaComponent } from 'src/tarefa/tarefa.component';
 import { AppRoutingModule } from './app.routing.module';
 import { PropriedadeComponent } from 'src/propriedade/propriedade.component';
 import { UserRepository } from 'src/repositories/user.respository';
+import { AuthGuardService } from 'src/services/auth-guard.service';
+
 
 
 @NgModule({
@@ -23,7 +25,8 @@ import { UserRepository } from 'src/repositories/user.respository';
     AppRoutingModule
   ],
   providers: [
-    UserRepository
+    UserRepository,
+    AuthGuardService
   ],
   bootstrap: [AppComponent]
 })

@@ -3,10 +3,13 @@ import { Routes, RouterModule } from "@angular/router";
 import { CategoriaComponent } from "src/categoria/categoria.component";
 import { TarefaComponent } from "src/tarefa/tarefa.component";
 import { PropriedadeComponent } from "src/propriedade/propriedade.component";
+import { AuthGuardService } from "src/services/auth-guard.service";
 
 const rotas: Routes=[
 {path:'tarefas', component:TarefaComponent},
-{path:'categorias', component:CategoriaComponent},
+{path:'categorias', component:CategoriaComponent,  
+//canActivate:[AuthGuardService]
+},
 {path:'propriedades', component:PropriedadeComponent},
 {path:'',redirectTo:'tarefas',pathMatch:'full'}
 

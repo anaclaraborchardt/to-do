@@ -98,7 +98,7 @@ export class TarefaComponent {
 
   drag(tarefaD: Pessoa): void {
     if (!this.hasPermission('Edit')) {
-      return; // Interrompe o processo de arraste se não tiver permissão
+      return; 
     }
     this.tarefaDrop = tarefaD;
   }
