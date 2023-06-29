@@ -46,6 +46,7 @@ cadastrarusuario(): void {
     categoria:'',
   };
 }
+
 ngOnInit() {
   const usuario = localStorage.getItem('usuarios');
   if (usuario) {

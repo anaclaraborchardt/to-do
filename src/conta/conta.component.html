@@ -1,0 +1,26 @@
+<h1>CADASTRE-SE</h1>
+<div *ngIf="pagina === 'cadastro'">
+  <h4>Id</h4>
+  <input type="text" placeholder="Ex: maria_silva@dominio.com" [(ngModel)]="cadastro.id">
+
+  <h4>E-mail</h4>
+  <input type="text" placeholder="Ex: maria_silva@dominio.com" [(ngModel)]="cadastro.email">
+  
+  <h4>Senha</h4>
+  <input type="password" placeholder="Senha" [(ngModel)]="cadastro.senha">
+  
+  <h4>Nome</h4>
+  <input type="text" placeholder="Ex: Maria da Silva" [(ngModel)]="cadastro.nome">
+
+  <button (click)="cadastrar()">CADASTRAR</button>
+<button (click)="trocarPagina()">Ir para login</button>
+</div>
+
+<div *ngIf="pagina === 'login'">
+    <h4>ID</h4>
+    <input type="text"  [(ngModel)]="cadastro.id">
+    <h4>Senha</h4>
+    <input type="password"  [(ngModel)]="cadastro.senha">
+    <button (click)="login()">LOGIN</button>
+</div>
+

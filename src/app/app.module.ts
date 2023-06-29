@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { PropriedadeComponent } from 'src/propriedade/propriedade.component';
 import { UserRepository } from 'src/repositories/user.respository';
 import { AuthGuardService } from 'src/services/auth-guard.service';
+import { ContaComponent } from 'src/conta/conta.component';
 
 
 
@@ -17,7 +18,8 @@ import { AuthGuardService } from 'src/services/auth-guard.service';
     AppComponent,
     CategoriaComponent,
     TarefaComponent,
-    PropriedadeComponent
+    PropriedadeComponent,
+    ContaComponent
   ],
   imports: [
     BrowserModule,
