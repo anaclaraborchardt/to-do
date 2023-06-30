@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { users } from 'src/data/users';
 import { user } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.respository';
@@ -56,6 +58,36 @@ ngOnInit() {
   if (categoriasSalvas) {
     this.categorias = JSON.parse(categoriasSalvas);
   }
+  this.users = this.userRepository.getUsers();
+    this.user = this.getUsuarioLogado();
+
+    this.user.subscribe((loggedInUser) => {
+      if (loggedInUser) {
+        this.hasPermission('Add').subscribe((canAdd) => {
+          if (canAdd) {
+            console.log('Pode cadastrar');
+          } else {
+            console.log('Não pode cadastrar');
+          }
+        });
+
+        this.hasPermission('Edit').subscribe((canEdit) => {
+          if (canEdit) {
+            console.log('Pode editar');
+          } else {
+            console.log('Não pode editar');
+          }
+        });
+
+        this.hasPermission('Remove').subscribe((canRemove) => {
+          if (canRemove) {
+            console.log('Pode remover');
+          } else {
+            console.log('Não pode remover');
+          }
+        });
+      }
+    });
 }
 
 removerUsuario(usuario: Pessoa): void {
@@ -86,18 +118,12 @@ adicionarCategoria(novaCategoria:string) {
   }
 }
 
-user!: user
+user: Observable<user>;
 
+private userId: string = 'diogo.defante';
+users: Observable<user[]>;
 
-private userId: string = 'joao.silva';
-private users: user[] = []
-
-
-constructor(private userRepository: UserRepository){
-  this.users = this.userRepository.getUsers();
-    this.user = this.getUsuarioLogado();
-    console.log(this.user);
-}
+constructor(private userRepository: UserRepository) {}
 
 adicionarTarefa(): void {
   if (!this.hasPermission('Add')) {
@@ -108,7 +134,7 @@ adicionarTarefa(): void {
 }
 
 adicionarPropriedade(): void {
-  if (!this.hasPermission2('Add')) {
+  if (!this.hasPermission('Add')) {
     alert('Não pode cadastrar');
     return;
   }
@@ -134,26 +160,20 @@ removerTarefa(): void {
 }
 
 
-hasPermission(permission: string): boolean {
-  return this.user.cardPermissions.some((cardPermission) => {
-    return cardPermission === permission;
-  });
+hasPermission(permission: string): Observable<boolean> {
+  return this.user.pipe(
+    map((user) => user && user.cardPermissions && user.cardPermissions.includes(permission))
+  );
 }
 
-hasPermission2(permission2: string): boolean {
-  return this.user.propertiesPermissions.some((propertiesPermission) => {
-    return propertiesPermission === permission2;
-  });
+private getUsuarioLogado(): Observable<user> {
+  return this.users.pipe(
+    map((users) => users && users.find((user) => user.id === this.userId))
+  );
 }
-
-
-private getUsuarioLogado(): user {
-  return this.users.find((user) => {
-    return user.id === this.userId
-  }) as user;
 }
 
 
-}
+
 
 

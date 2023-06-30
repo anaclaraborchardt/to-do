@@ -15,7 +15,7 @@
       <option *ngFor="let item of propriedade.itensSelecao" [value]="item">{{ item }}</option>
     </select>
   </div>
-  <button class="botao" (click)="adicionarTarefa()" [disabled]="!hasPermission('Add')" (click)="cadastrarTarefa()">Cadastrar Tarefa</button>
+  <button class="botao" (click)="cadastrarTarefa()" [disabled]="!hasPermission('Add')" (click)="cadastrarTarefa()">Cadastrar Tarefa</button>
   
 </div>
 

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { CategoriaComponent } from 'src/categoria/categoria.component';
@@ -19,12 +19,14 @@ import { ContaComponent } from 'src/conta/conta.component';
     CategoriaComponent,
     TarefaComponent,
     PropriedadeComponent,
-    ContaComponent
+    ContaComponent,
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
     UserRepository,

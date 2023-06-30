@@ -1,12 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { user } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.respository';
 
+interface Propriedade {
+  nome: string;
+  tipo: string;
+  insercao: any;
+}
 
 interface Pessoa {
   tarefa: string;
   categoria: string;
-  listaPropriedades?:any;
+  listaPropriedades: Propriedade[];
 }
 
 @Component({
@@ -14,7 +21,7 @@ interface Pessoa {
   templateUrl: './tarefa.component.html',
   styleUrls: ['./tarefa.component.css']
 })
-export class TarefaComponent {
+export class TarefaComponent implements OnInit {
   mostraInput: boolean = true;
   usuarios: Pessoa[] = [];
   tarefa: string;
@@ -25,21 +32,91 @@ export class TarefaComponent {
   tarefaDrop: Pessoa;
   categoriaDrop: string;
   indiceNovo: number;
-  listaPropriedades: any []=[]
+  listaPropriedades: Propriedade[] = [];
 
   pessoa: Pessoa = {
     tarefa: '',
     categoria: '',
-    listaPropriedades:''
+    listaPropriedades: []
   };
 
+  user: Observable<user>;
+
+  private userId: string = 'diogo.defante';
+  users: Observable<user[]>;
+  canAddTask: boolean;
+
+  constructor(private userRepository: UserRepository) {
+    this.users = this.userRepository.getUsers().pipe(
+      tap(users => console.log(users))
+    );
+  
+    this.user = this.getUsuarioLogado();
+    console.log(this.user);
+  
+    this.hasPermission('Add').subscribe(canAdd => {
+      this.canAddTask = canAdd;
+    });
+  }
+
+  ngOnInit() {
+    this.users = this.userRepository.getUsers();
+    this.user = this.getUsuarioLogado();
+
+    this.user.subscribe((loggedInUser) => {
+      if (loggedInUser) {
+        this.hasPermission('Add').subscribe((canAdd) => {
+          if (canAdd) {
+            console.log('Pode cadastrar');
+          } else {
+            console.log('Não pode cadastrar');
+          }
+        });
+
+        this.hasPermission('Edit').subscribe((canEdit) => {
+          if (canEdit) {
+            console.log('Pode editar');
+          } else {
+            console.log('Não pode editar');
+          }
+        });
+
+        this.hasPermission('Remove').subscribe((canRemove) => {
+          if (canRemove) {
+            console.log('Pode remover');
+          } else {
+            console.log('Não pode remover');
+          }
+        });
+      }
+    });
+
+    const usuariosSalvos = localStorage.getItem('usuarios');
+    if (usuariosSalvos) {
+      this.usuarios = JSON.parse(usuariosSalvos);
+    }
+
+    const categoriasSalvas = localStorage.getItem('categorias');
+    if (categoriasSalvas) {
+      this.categorias = JSON.parse(categoriasSalvas);
+    }
+
+    const propriedadesSalvas = localStorage.getItem('listaPropriedades');
+    if (propriedadesSalvas) {
+      this.listaPropriedades = JSON.parse(propriedadesSalvas);
+    }
+  }
+
   cadastrarTarefa(): void {
-    const propriedadescadastro = this.listaPropriedades.map(propriedade => 
-      ({ ...propriedade, insercao: propriedade.insercao }));
+    const propriedadesCadastro = this.listaPropriedades.map((propriedade) => ({
+      ...propriedade,
+      insercao: propriedade.insercao
+    }));
+
     const usuario: Pessoa = {
       tarefa: this.pessoa.tarefa,
       categoria: this.pessoa.categoria,
-      listaPropriedades:propriedadescadastro
+      listaPropriedades: propriedadesCadastro
     };
 
     this.usuarios.push(usuario);
@@ -49,27 +126,12 @@ export class TarefaComponent {
     for (let propriedade of this.listaPropriedades) {
       propriedade.insercao = '';
     }
-    
-    this.pessoa.tarefa='';
-    for (let propriedade of this.listaPropriedades) {
-      propriedade.insercao = ''; 
-    }
-  }
 
-  ngOnInit() {
-    const usuario = localStorage.getItem('usuarios');
-    if (usuario) {
-      this.usuarios = JSON.parse(usuario);
+    this.pessoa.tarefa = '';
+    for (let propriedade of this.listaPropriedades) {
+      propriedade.insercao = '';
     }
-    const categoriasSalvas = localStorage.getItem('categorias');
-    if (categoriasSalvas) {
-      this.categorias = JSON.parse(categoriasSalvas);
-    }
-    const propriedadesSalvas = localStorage.getItem('listaPropriedades');
-    if (propriedadesSalvas) {
-      this.listaPropriedades = JSON.parse(propriedadesSalvas);
   }
-}
 
   removerUsuario(usuario: Pessoa): void {
     const indice = this.usuarios.indexOf(usuario);
@@ -97,25 +159,25 @@ export class TarefaComponent {
   }
 
   drag(tarefaD: Pessoa): void {
-    if (!this.hasPermission('Edit')) {
-      return; 
-    }
     this.tarefaDrop = tarefaD;
   }
 
   drop(event: Event): void {
     event.preventDefault();
 
-    this.tarefaDrop.categoria = this.categoriaDrop;
-
-    this.ajustarPosicao();
+    if (this.tarefaDrop) {
+      this.tarefaDrop.categoria = this.categoriaDrop;
+      this.ajustarPosicao();
+    }
   }
 
   ajustarPosicao(): void {
-    this.usuarios.splice(this.usuarios.indexOf(this.tarefaDrop), 1);
-    this.usuarios.splice(this.indiceNovo, 0, this.tarefaDrop);
+    if (this.tarefaDrop) {
+      this.usuarios.splice(this.usuarios.indexOf(this.tarefaDrop), 1);
+      this.usuarios.splice(this.indiceNovo, 0, this.tarefaDrop);
 
-    localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
+      localStorage.setItem('usuarios', JSON.stringify(this.usuarios));
+    }
   }
 
   pegaIndice(indice: number, event: Event): void {
@@ -123,69 +185,17 @@ export class TarefaComponent {
     this.indiceNovo = indice;
   }
 
-  atualizarDrag(){
-    if (!this.hasPermission('MoveCard')) {
-      alert('Não pode cadastrar');
-      return;
-    }
-    alert('Pode cadastrar');
+  hasPermission(permission: string): Observable<boolean> {
+    return this.user.pipe(
+      map((user) => user && user.cardPermissions && user.cardPermissions.includes(permission))
+    );
   }
 
-  user!: user
-
-
-private userId: string = 'diogo.defante';
-private users: user[] = []
-
-
-constructor(private userRepository: UserRepository){
-  this.users = this.userRepository.getUsers();
-    this.user = this.getUsuarioLogado();
-    console.log(this.user);
-}
-
-adicionarTarefa(): void {
-  if (!this.hasPermission('Add')) {
-    alert('Não pode cadastrar');
-    return;
+  private getUsuarioLogado(): Observable<user> {
+    return this.users.pipe(
+      map((users) => users && users.find((user) => user.id === this.userId))
+    );
   }
-  alert('Pode cadastrar');
 }
-
-
-editarTarefa(): void {
-  if (!this.hasPermission('Edit')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
-
-
-removerTarefa(): void {
-  if (!this.hasPermission('Remove')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
-
-
-hasPermission(permission: string): boolean {
-  return this.user.cardPermissions.some((cardPermission) => {
-    return cardPermission === permission;
-  });
-}
-
-
-private getUsuarioLogado(): user {
-  return this.users.find((user) => {
-    return user.id === this.userId
-  }) as user;
-}
-
-
-}
-
 
 

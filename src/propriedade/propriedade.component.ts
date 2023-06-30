@@ -72,57 +72,6 @@ export class PropriedadeComponent {
     this.mostraEditarOpcao = true;
   }
 
-  user!: user
-
-
-private userId: string = 'joao.silva';
-private users: user[] = []
-
-
-constructor(private userRepository: UserRepository){
-  this.users = this.userRepository.getUsers();
-    this.user = this.getUsuarioLogado();
-    console.log(this.user);
-}
-
-adicionarPropriedade(): void {
-  if (!this.hasPermission2('Add')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
-
-
-editarPropriedade(): void {
-  if (!this.hasPermission2('Edit')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
-
-removerPropriedade(): void {
-  if (!this.hasPermission2('Remove')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
-
-hasPermission2(permission2: string): boolean {
-  return this.user.propertiesPermissions.some((propertiesPermission) => {
-    return propertiesPermission === permission2;
-  });
-}
-
-
-private getUsuarioLogado(): user {
-  return this.users.find((user) => {
-    return user.id === this.userId
-  }) as user;
-}
-
 
 }
 
