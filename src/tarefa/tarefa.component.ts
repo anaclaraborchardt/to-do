@@ -193,7 +193,7 @@ export class TarefaComponent implements OnInit {
 
   private getUsuarioLogado(): Observable<user> {
     return this.users.pipe(
-      map((users) => users && users.find((user) => user.id === this.userId))
+      map((users) => users && users.find((user) => user.meuParametro === this.userId))
     );
   }
 }

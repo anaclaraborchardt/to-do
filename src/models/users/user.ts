@@ -1,10 +1,11 @@
 export class user{
 
-id:string = ''
-name:string = ''
-groups: string []= []
-cardPermissions: string[] =[]
-propertiesPermissions: string[]= []
+meuParametro:string = ''
+nome:string = ''
+email:string = ''
+senha:string = ''
+cardPermissions: string=''
+propertiesPermissions: string=''
 
 
 }

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { users } from 'src/data/users';
 import { user } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.respository';
 
@@ -168,7 +167,7 @@ hasPermission(permission: string): Observable<boolean> {
 
 private getUsuarioLogado(): Observable<user> {
   return this.users.pipe(
-    map((users) => users && users.find((user) => user.id === this.userId))
+    map((users) => users && users.find((user) => user.meuParametro === this.userId))
   );
 }
 }
