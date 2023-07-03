@@ -5,6 +5,7 @@ import { TarefaComponent } from "src/tarefa/tarefa.component";
 import { PropriedadeComponent } from "src/propriedade/propriedade.component";
 import { AuthGuardService } from "src/services/auth-guard.service";
 import { ContaComponent } from "src/conta/conta.component";
+import { LoginComponent } from "src/login/login.component";
 
 const rotas: Routes=[
 {path:'tarefas', component:TarefaComponent},
@@ -13,6 +14,7 @@ const rotas: Routes=[
 },
 {path:'propriedades', component:PropriedadeComponent},
 {path:'conta', component:ContaComponent},
+{path:'login', component:LoginComponent},
 {path:'',redirectTo:'tarefas',pathMatch:'full'}
 
 ];

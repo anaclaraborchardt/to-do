@@ -18,14 +18,7 @@
   <input type="text" placeholder="Ex: Maria da Silva" [(ngModel)]="propertiesPermissions">
 
   <button (click)="cadastrar()">CADASTRAR</button>
-<button (click)="trocarPagina()">Ir para login</button>
+  <a href="http://localhost:4200/login"><button class="botoes" (click)="cadastra()">LOGIN</button></a>
 </div>
 
-<div *ngIf="pagina === 'login'">
-    <h4>ID</h4>
-    <input type="text"  [(ngModel)]="cadastro.id">
-    <h4>Senha</h4>
-    <input type="password"  [(ngModel)]="cadastro.senha">
-    <button (click)="login()">LOGIN</button>
-</div>
 

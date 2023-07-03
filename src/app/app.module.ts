@@ -10,6 +10,7 @@ import { PropriedadeComponent } from 'src/propriedade/propriedade.component';
 import { UserRepository } from 'src/repositories/user.respository';
 import { AuthGuardService } from 'src/services/auth-guard.service';
 import { ContaComponent } from 'src/conta/conta.component';
+import { LoginComponent } from 'src/login/login.component';
 
 
 
@@ -20,6 +21,7 @@ import { ContaComponent } from 'src/conta/conta.component';
     TarefaComponent,
     PropriedadeComponent,
     ContaComponent,
+    LoginComponent
 
   ],
   imports: [
