@@ -1,25 +1,25 @@
 // import { user } from "src/models/users/user"
 
-// export const users : user[]=[
+//  export const users : user[]=[
 	
-//     {
-// 	"id" : "joao.silva",
-// 	"name": "João Da silva",
+//      {
+//  	"id" : "joao.silva",
+//  	"name": "João Da silva",
 // 	"groups": [],
-// 	"cardPermissions":[
-// 	 "Add"],
+//  	"cardPermissions":[
+//  	 "Add"],
 // 	 "propertiesPermissions":[
-// 	 "Add"]
+//  	 "Add"]
 		
-// },
-// {
-// 	"id" : "henrique.santos",
+//  },
+//  {
+//  	"id" : "henrique.santos",
 // 	"name": "henrique Santos",
-// 	"groups": [],
-// 	"cardPermissions":[
-// 	 "Edit"],
-// 	 "propertiesPermissions":[
-// 	 "Edit"]
+//  	"groups": [],
+//  	"cardPermissions":[
+//  	 "Edit"],
+//  	 "propertiesPermissions":[
+//  	 "Edit"]
 // },
 // {
 		

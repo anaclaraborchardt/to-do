@@ -4,6 +4,7 @@ import { map } from 'rxjs/operators';
 import { user } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.respository';
 
+
 interface Pessoa{
 
   tarefa: string;
@@ -25,6 +26,7 @@ export class AppComponent {
   novaCategoria: string;
   tarefaSelecionada: Pessoa = null;
   categorias: string[] = [];
+  cookieValue='unknown'
 
   pessoa: Pessoa = {
     tarefa:'',
@@ -170,6 +172,8 @@ private getUsuarioLogado(): Observable<user> {
     map((users) => users && users.find((user) => user.meuParametro === this.userId))
   );
 }
+
+
 }
 
 

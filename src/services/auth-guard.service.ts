@@ -1,12 +1,20 @@
 import { Injectable} from "@angular/core";
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from "@angular/router";
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
 import { Observable } from "rxjs";
+import { user } from "src/models/users/user";
+import { TesteService } from "./teste.service";
 
 @Injectable()
     export class AuthGuardService implements CanActivate{
-        canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-            return false;
-            
-        }
+        constructor(private router: Router, private authService: TesteService) {}
+
+  canActivate(): boolean {
+    if (this.authService.isContaCadastrada) {
+      return true; // Permite a navegação
+    } else {
+      this.router.navigate(['/conta']); // Redireciona para a página de login
+      return false; // Impede a navegação
+    }
+  }
 
     }

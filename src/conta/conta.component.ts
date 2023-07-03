@@ -4,12 +4,7 @@ import { Router } from '@angular/router';
 import { user } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.respository';
 
-interface Conta {
-  id: string;
-  nome: string;
-  email: string;
-  senha: string;
-}
+
 
 
 @Component({
@@ -21,9 +16,7 @@ interface Conta {
 export class ContaComponent implements OnInit {
   users: user[];
   
-  contaLogada: Conta;
   contaCadastrada: number;
-  listaContas: Conta[] = [];
   cadastro: any = {};
   contaExistente: boolean = false;
   pagina: string = 'cadastro';
@@ -69,8 +62,6 @@ export class ContaComponent implements OnInit {
         this.email = "";
         this.cardPermissions = "";
         this.propertiesPermissions=""
-
-        alert("Usuário Cadastrado!");
       }
     });
   }
