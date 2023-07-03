@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/auth.service';
 import { user } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.respository';
 
