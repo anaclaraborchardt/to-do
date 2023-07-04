@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { user } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.respository';
+import { TesteService } from 'src/services/teste.service';
 
 
 interface Pessoa{
@@ -124,7 +125,21 @@ user: Observable<user>;
 private userId: string = 'diogo.defante';
 users: Observable<user[]>;
 
-constructor(private userRepository: UserRepository) {}
+constructor(private userRepository: UserRepository,
+  private testeService: TesteService
+) {
+  userRepository.getUsers().subscribe({
+    next: (value) =>{
+      console.log(value)
+    }
+  });
+
+  testeService.getTema().subscribe({
+    next: (tema) => {
+      console.log(tema);
+    }
+  })
+}
 
 adicionarTarefa(): void {
   if (!this.hasPermission('Add')) {

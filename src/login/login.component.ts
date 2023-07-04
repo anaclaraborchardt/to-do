@@ -42,6 +42,12 @@ export class LoginComponent implements OnInit {
       if (usuarioEncontrado) {
         alert("Login bem-sucedido");
         window.location.replace("http://localhost:4200/tarefas")
+        document.cookie = `meuParametro=${usuarioEncontrado.meuParametro}`;
+        document.cookie = `nome=${usuarioEncontrado.nome}`;
+        document.cookie = `senha=${usuarioEncontrado.senha}`;
+        document.cookie = `email=${usuarioEncontrado.email}`;
+        document.cookie = `cardPermissions=${usuarioEncontrado.cardPermissions}`;
+        document.cookie = `propertiesPermissions=${usuarioEncontrado.propertiesPermissions}`;
       } else {
         alert("Não foi possível fazer login.");
       }

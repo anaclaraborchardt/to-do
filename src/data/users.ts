@@ -1,64 +1,49 @@
-// import { user } from "src/models/users/user"
+import { user } from "src/models/users/user"
 
-//  export const users : user[]=[
+ export const users : user[]=[
 	
-//      {
-//  	"id" : "joao.silva",
-//  	"name": "João Da silva",
-// 	"groups": [],
-//  	"cardPermissions":[
-//  	 "Add"],
-// 	 "propertiesPermissions":[
-//  	 "Add"]
+     {
+ 	"meuParametro" : "joao.silva",
+ 	"nome": "João Da silva",
+    "email":'oi',
+    "senha":"hi",
+ 	"cardPermissions":'add',
+	 "propertiesPermissions":'add'
 		
-//  },
+},
 //  {
-//  	"id" : "henrique.santos",
+//  	"meuParametro" : "henrique.santos",
 // 	"name": "henrique Santos",
 //  	"groups": [],
-//  	"cardPermissions":[
-//  	 "Edit"],
-//  	 "propertiesPermissions":[
-//  	 "Edit"]
+//  	"cardPermissions":'add',
+//  	 "propertiesPermissions":'add'
 // },
 // {
 		
-// 	"id" : "igor.oliveira",
+// 	"meuParametro" : "igor.oliveira",
 // 	"name": "igor Oliveira",
 // 	"groups": [],
-// 	"cardPermissions":[
-// 	 "Remove"],
-// 	 "propertiesPermissions":[
-// 	 "Remove"]
+// 	"cardPermissions":'add',
+// 	 "propertiesPermissions":'add'
 		
 // },
 // {
 		
-// 	"id" : "igor.guimaraes",
+// 	"meuParametro" : "igor.guimaraes",
 // 	"name": "igor Guimaraes",
 // 	"groups": [],
-// 	"cardPermissions":[
-// 	 "MoveCard"],
-// 	 "propertiesPermissions":[
-// 	 "Add",
-// 	 "Edit"]
+// 	"cardPermissions":'add',
+// 	 "propertiesPermissions":'add'
 		
 // },
 // {
 		
-// 	"id" : "diogo.defante",
+// 	"meuParametro" : "diogo.defante",
 // 	"name": "diogo defante",
 // 	"groups": [],
-// 	"cardPermissions":[
-// 	 "MoveCard",
-// 	 "Add",
-// 	 "Edit",
-// 	 "Remove"],
-// 	 "propertiesPermissions":[
-// 	 "Add",
-// 	 "Edit",
-// 	 "Remove"]
+// 	"cardPermissions":'add',
+// 	 "propertiesPermissions":'add'
 
 		
 // }
-// ]
+]

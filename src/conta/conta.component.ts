@@ -39,6 +39,7 @@ export class ContaComponent implements OnInit {
   }
 
   cadastrar(): void {
+    let usuarioCadastrado: boolean =true
     const usuario: user = {
       meuParametro: this.meuParametro,
       nome: this.nome,
@@ -51,8 +52,9 @@ export class ContaComponent implements OnInit {
     this.users.forEach(element => {
       if (element.meuParametro == this.meuParametro) {
         alert("usuario já cadastrado.")
+        usuarioCadastrado = false
       }
-      else {
+      else  if (usuarioCadastrado == true) { {
         this.httpClient.post<user[]>("http://localhost:4300/usuarios", usuario)
           .subscribe((req) => {
           })
@@ -62,7 +64,10 @@ export class ContaComponent implements OnInit {
         this.email = "";
         this.cardPermissions = "";
         this.propertiesPermissions=""
+        usuarioCadastrado = false;
+
       }
+    }
     });
   }
 }

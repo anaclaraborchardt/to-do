@@ -8,14 +8,16 @@ import { ContaComponent } from "src/conta/conta.component";
 import { LoginComponent } from "src/login/login.component";
 
 const rotas: Routes=[
-{path:'tarefas', component:TarefaComponent},
+{path:'tarefas', component:TarefaComponent,
+canActivate:[AuthGuardService]},
 {path:'categorias', component:CategoriaComponent,  
-//canActivate:[AuthGuardService]
+canActivate:[AuthGuardService]
 },
-{path:'propriedades', component:PropriedadeComponent},
+{path:'propriedades', component:PropriedadeComponent,
+canActivate:[AuthGuardService]},
 {path:'conta', component:ContaComponent},
 {path:'login', component:LoginComponent},
-{path:'',redirectTo:'tarefas',pathMatch:'full'}
+{path:'',redirectTo:'conta',pathMatch:'full'}
 
 ];
 
