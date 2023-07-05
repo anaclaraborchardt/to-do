@@ -36,22 +36,42 @@ export class LoginComponent implements OnInit {
   
   verificarLogin(): void {
     this.users.subscribe(users => {
-      const usuarioEncontrado = users.find
-      (user => user.meuParametro === this.meuParametro && user.senha === this.senha);
-
+      const usuarioEncontrado = users.find(
+        user =>
+          user.meuParametro === this.meuParametro && user.senha === this.senha
+      );
+  
       if (usuarioEncontrado) {
-        alert("Login bem-sucedido");
-        window.location.replace("http://localhost:4200/tarefas")
-        document.cookie = `meuParametro=${usuarioEncontrado.meuParametro}`;
-        document.cookie = `nome=${usuarioEncontrado.nome}`;
-        document.cookie = `senha=${usuarioEncontrado.senha}`;
-        document.cookie = `email=${usuarioEncontrado.email}`;
-        document.cookie = `cardPermissions=${usuarioEncontrado.cardPermissions}`;
-        document.cookie = `propertiesPermissions=${usuarioEncontrado.propertiesPermissions}`;
+        alert('Login bem-sucedido');
+        localStorage.setItem('logado', 'true');
+
+        this.setCookie('logado', 'true');
+
+        this.defineUserCookies(usuarioEncontrado);
+  
+        this.paginaTarefas();
       } else {
-        alert("Não foi possível fazer login.");
+        alert('Não foi possível fazer login.');
       }
     });
   }
-}
+  
+  setCookie(nome: string, value: string): void {
+    document.cookie = `${nome}=${value}`;
+  }
+  
+  defineUserCookies(usuarioEncontrado: user): void {
+
+    this.setCookie('meuParametro', usuarioEncontrado.meuParametro);
+    this.setCookie('nome', usuarioEncontrado.nome);
+    this.setCookie('senha', usuarioEncontrado.senha);
+    this.setCookie('email', usuarioEncontrado.email);
+    this.setCookie('cardPermissions', usuarioEncontrado.cardPermissions);
+    this.setCookie('propertiesPermissions', usuarioEncontrado.propertiesPermissions);
+  }
+  
+  paginaTarefas(): void {
+    window.location.href = 'http://localhost:4200/tarefas';
+  }
+}  
 
