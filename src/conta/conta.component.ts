@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { properties } from 'src/models/users/properties';
+import { cards } from 'src/models/users/cards';
 import { user } from 'src/models/users/user';
 import { UserRepository } from 'src/repositories/user.respository';
 
@@ -45,8 +47,18 @@ export class ContaComponent implements OnInit {
       nome: this.nome,
       senha: this.senha,
       email: this.email,
-      cardPermissions: this.cardPermissions,
-      propertiesPermissions: this.propertiesPermissions,
+      cardPermissions: '',
+      propertiesPermissions: ''
+    }
+
+    const properties: properties = {
+      id_usuario: this.meuParametro,
+      permissions: this.propertiesPermissions
+    }
+
+    const cards: cards = {
+      id_usuario: this.meuParametro,
+      permissions: this.cardPermissions
     }
 
     this.users.forEach(element => {
@@ -56,6 +68,12 @@ export class ContaComponent implements OnInit {
       }
       else  if (usuarioCadastrado == true) { {
         this.httpClient.post<user[]>("http://localhost:4300/usuarios", usuario)
+          .subscribe((req) => {
+          })
+          this.httpClient.post<properties[]>("http://localhost:4300/properties", properties)
+          .subscribe((req) => {
+          })
+          this.httpClient.post<cards[]>("http://localhost:4300/cards", cards)
           .subscribe((req) => {
           })
         this.meuParametro= "";
@@ -69,5 +87,7 @@ export class ContaComponent implements OnInit {
       }
     }
     });
+    
+    
   }
 }

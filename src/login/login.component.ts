@@ -66,8 +66,8 @@ export class LoginComponent implements OnInit {
     this.setCookie('nome', usuarioEncontrado.nome);
     this.setCookie('senha', usuarioEncontrado.senha);
     this.setCookie('email', usuarioEncontrado.email);
-    this.setCookie('cardPermissions', usuarioEncontrado.cardPermissions);
-    this.setCookie('propertiesPermissions', usuarioEncontrado.propertiesPermissions);
+   this.setCookie('cardPermissions', usuarioEncontrado.cardPermissions);
+   this.setCookie('propertiesPermissions', usuarioEncontrado.propertiesPermissions);
   }
   
   paginaTarefas(): void {

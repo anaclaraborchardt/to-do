@@ -63,33 +63,33 @@ ngOnInit() {
   this.users = this.userRepository.getUsers();
     this.user = this.getUsuarioLogado();
 
-    this.user.subscribe((loggedInUser) => {
-      if (loggedInUser) {
-        this.hasPermission('Add').subscribe((canAdd) => {
-          if (canAdd) {
-            console.log('Pode cadastrar');
-          } else {
-            console.log('Não pode cadastrar');
-          }
-        });
+    // this.user.subscribe((loggedInUser) => {
+    //   if (loggedInUser) {
+    //     this.hasPermission('Add').subscribe((canAdd) => {
+    //       if (canAdd) {
+    //         console.log('Pode cadastrar');
+    //       } else {
+    //         console.log('Não pode cadastrar');
+    //       }
+    //     });
 
-        this.hasPermission('Edit').subscribe((canEdit) => {
-          if (canEdit) {
-            console.log('Pode editar');
-          } else {
-            console.log('Não pode editar');
-          }
-        });
+    //     this.hasPermission('Edit').subscribe((canEdit) => {
+    //       if (canEdit) {
+    //         console.log('Pode editar');
+    //       } else {
+    //         console.log('Não pode editar');
+    //       }
+    //     });
 
-        this.hasPermission('Remove').subscribe((canRemove) => {
-          if (canRemove) {
-            console.log('Pode remover');
-          } else {
-            console.log('Não pode remover');
-          }
-        });
-      }
-    });
+    //     this.hasPermission('Remove').subscribe((canRemove) => {
+    //       if (canRemove) {
+    //         console.log('Pode remover');
+    //       } else {
+    //         console.log('Não pode remover');
+    //       }
+    //     });
+    //   }
+    // });
 }
 
 removerUsuario(usuario: Pessoa): void {
@@ -141,46 +141,46 @@ constructor(private userRepository: UserRepository,
   })
 }
 
-adicionarTarefa(): void {
-  if (!this.hasPermission('Add')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
+// adicionarTarefa(): void {
+//   if (!this.hasPermission('Add')) {
+//     alert('Não pode cadastrar');
+//     return;
+//   }
+//   alert('Pode cadastrar');
+// }
 
-adicionarPropriedade(): void {
-  if (!this.hasPermission('Add')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
-
-
-editarTarefa(): void {
-  if (!this.hasPermission('Edit')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
+// adicionarPropriedade(): void {
+//   if (!this.hasPermission('Add')) {
+//     alert('Não pode cadastrar');
+//     return;
+//   }
+//   alert('Pode cadastrar');
+// }
 
 
-removerTarefa(): void {
-  if (!this.hasPermission('Remove')) {
-    alert('Não pode cadastrar');
-    return;
-  }
-  alert('Pode cadastrar');
-}
+// editarTarefa(): void {
+//   if (!this.hasPermission('Edit')) {
+//     alert('Não pode cadastrar');
+//     return;
+//   }
+//   alert('Pode cadastrar');
+// }
 
 
-hasPermission(permission: string): Observable<boolean> {
-  return this.user.pipe(
-    map((user) => user && user.cardPermissions && user.cardPermissions.includes(permission))
-  );
-}
+// removerTarefa(): void {
+//   if (!this.hasPermission('Remove')) {
+//     alert('Não pode cadastrar');
+//     return;
+//   }
+//   alert('Pode cadastrar');
+// }
+
+
+// hasPermission(permission: string): Observable<boolean> {
+//   return this.user.pipe(
+//     map((user) => user && user.cardPermissions && user.cardPermissions.includes(permission))
+//   );
+// }
 
 private getUsuarioLogado(): Observable<user> {
   return this.users.pipe(
