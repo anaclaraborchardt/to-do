@@ -1,7 +1,7 @@
 <h1>CADASTRE-SE</h1>
 <div *ngIf="pagina === 'cadastro'">
   <h4>Id</h4>
-  <input type="text" placeholder="Ex: maria_silva@dominio.com" [(ngModel)]="meuParametro">
+  <input type="text" placeholder="Ex: maria.silva" [(ngModel)]="meuParametro">
 
   <h4>E-mail</h4>
   <input type="text" placeholder="Ex: maria_silva@dominio.com" [(ngModel)]="email">
@@ -13,9 +13,9 @@
   <input type="text" placeholder="Ex: Maria da Silva" [(ngModel)]="nome">
 
   <h4>Card</h4>
-  <input type="text" placeholder="Ex: Maria da Silva" [(ngModel)]="cardPermissions">
+  <input type="text" placeholder="Ex: Add" [(ngModel)]="cardPermissions">
   <h4>Properties</h4>
-  <input type="text" placeholder="Ex: Maria da Silva" [(ngModel)]="propertiesPermissions">
+  <input type="text" placeholder="Ex: Add" [(ngModel)]="propertiesPermissions">
 
   <button (click)="cadastrar()">CADASTRAR</button>
   <a href="http://localhost:4200/login"><button class="botoes" (click)="cadastra()">LOGIN</button></a>

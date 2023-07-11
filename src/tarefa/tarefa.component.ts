@@ -52,7 +52,7 @@ export class TarefaComponent implements OnInit {
   canAddTask: boolean;
   usuario: user[];
   private listaPropertyPermission: properties[];
-  listaCardPermission: cards[];
+  listaCardPermission: cards[] ;
 
   constructor(private userRepository: UserRepository,
     private cardRepository: CardsRepository,
@@ -180,11 +180,9 @@ export class TarefaComponent implements OnInit {
 
   hasPermission(permission: string): boolean {
     for(let cardPermissions of this.listaCardPermission){
-      for(let usuario of this.usuario){
       if(cardPermissions.id_usuario === this.userId
         && cardPermissions.permissions === permission){
         return true
-      }
     }
   }
   }

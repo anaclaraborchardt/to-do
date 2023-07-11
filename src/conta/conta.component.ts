@@ -47,8 +47,8 @@ export class ContaComponent implements OnInit {
       nome: this.nome,
       senha: this.senha,
       email: this.email,
-      cardPermissions: '',
-      propertiesPermissions: ''
+      cardPermissions: this.cardPermissions,
+      propertiesPermissions: this.propertiesPermissions
     }
 
       const properties: properties = {
