@@ -14,6 +14,7 @@ import { LoginComponent } from 'src/login/login.component';
 import { TesteService } from 'src/services/teste.service';
 import { CardsRepository } from 'src/repositories/cards.repository';
 import { PropertiesRepository } from 'src/repositories/properties.repository';
+import { PermissionsService } from 'src/services/permissions.service';
 
 
 
@@ -38,7 +39,8 @@ import { PropertiesRepository } from 'src/repositories/properties.repository';
     AuthGuardService,
     TesteService,
     CardsRepository,
-    PropertiesRepository
+    PropertiesRepository,
+    PermissionsService
   ],
   bootstrap: [AppComponent]
 })

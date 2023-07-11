@@ -41,7 +41,8 @@
           Deseja trocar a categoria?
           <br>
           <select [(ngModel)]="usuario.categoria" (change)="atualizarTarefa(usuario, $event.target.value)">
-            <option value="">Selecione uma opção</option>
+            <!-- <option value="">Selecione uma opção</option> -->
+            
             <option *ngFor="let cat of categorias" [value]="cat">{{cat}}</option>
           </select>
           <br>

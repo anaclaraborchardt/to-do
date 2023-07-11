@@ -1,11 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { user } from 'src/models/users/user';
+
 import { UserRepository } from 'src/repositories/user.respository';
-import { TesteService } from 'src/services/teste.service';
+import { PermissionsService } from 'src/services/permissions.service';
+
 
 @Component({
   selector: 'app-login',
@@ -20,9 +22,12 @@ export class LoginComponent implements OnInit {
   users: Observable<user[]>;
   canAddTask: boolean;
 
-  
 
-  constructor(private userRepository: UserRepository) {
+
+  constructor(
+    private userRepository: UserRepository,
+    private permissions: PermissionsService
+  ) {
     this.users = this.userRepository.getUsers().pipe(
       tap(users => console.log(users))
     );
@@ -33,14 +38,14 @@ export class LoginComponent implements OnInit {
       this.users = JSON.parse(localStorage.getItem('users'));
     }
   }
-  
+
   verificarLogin(): void {
     this.users.subscribe(users => {
       const usuarioEncontrado = users.find(
         user =>
           user.meuParametro === this.meuParametro && user.senha === this.senha
       );
-  
+
       if (usuarioEncontrado) {
         alert('Login bem-sucedido');
         localStorage.setItem('logado', 'true');
@@ -49,30 +54,30 @@ export class LoginComponent implements OnInit {
         this.setCookie('logado', 'true');
 
         this.defineUserCookies(usuarioEncontrado);
-  
+        this.permissions.setCardPermissions();
         this.paginaTarefas();
       } else {
         alert('Não foi possível fazer login.');
       }
     });
   }
-  
+
   setCookie(nome: string, value: string): void {
     document.cookie = `${nome}=${value}`;
   }
-  
+
   defineUserCookies(usuarioEncontrado: user): void {
 
     this.setCookie('meuParametro', usuarioEncontrado.meuParametro);
     this.setCookie('nome', usuarioEncontrado.nome);
     this.setCookie('senha', usuarioEncontrado.senha);
     this.setCookie('email', usuarioEncontrado.email);
-   this.setCookie('cardPermissions', usuarioEncontrado.cardPermissions);
-   this.setCookie('propertiesPermissions', usuarioEncontrado.propertiesPermissions);
+    this.setCookie('cardPermissions', usuarioEncontrado.cardPermissions);
+    this.setCookie('propertiesPermissions', usuarioEncontrado.propertiesPermissions);
   }
-  
+
   paginaTarefas(): void {
     window.location.href = 'http://localhost:4200/tarefas';
   }
-}  
+}
 

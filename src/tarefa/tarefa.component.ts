@@ -8,6 +8,7 @@ import { user } from 'src/models/users/user';
 import { CardsRepository } from 'src/repositories/cards.repository';
 import { PropertiesRepository } from 'src/repositories/properties.repository';
 import { UserRepository } from 'src/repositories/user.respository';
+import { PermissionsService } from 'src/services/permissions.service';
 
 interface Propriedade {
   nome: string;
@@ -52,33 +53,29 @@ export class TarefaComponent implements OnInit {
   canAddTask: boolean;
   usuario: user[];
   private listaPropertyPermission: properties[];
-  listaCardPermission: cards[] ;
+  listaCardPermission: cards[];
 
   constructor(private userRepository: UserRepository,
     private cardRepository: CardsRepository,
     private propertyRepository: PropertiesRepository,
-    private httpClient: HttpClient
-    ) {
-      userRepository.getUsers().subscribe({
-        next: (value) => {
-          this.usuario = value;
-        }
-      });
-      
-      propertyRepository.getProperties().subscribe({
-        next: (valor) => {
-          this.listaPropertyPermission = valor;
-        }
-      });
+    private httpClient: HttpClient,
+    private permissions: PermissionsService
+  ) {
+    userRepository.getUsers().subscribe({
+      next: (value) => {
+        this.usuario = value;
+      }
+    });
 
-      cardRepository.getCards().subscribe({
-        next: (valor) => {
-          this.listaCardPermission = valor;
-        }
-      });
+    propertyRepository.getProperties().subscribe({
+      next: (valor) => {
+        this.listaPropertyPermission = valor;
+      }
+    });
   }
 
   ngOnInit() {
+    console.log(this.listaCardPermission);
     this.users = this.userRepository.getUsers();
     this.user = this.getUsuarioLogado();
 
@@ -179,12 +176,10 @@ export class TarefaComponent implements OnInit {
   }
 
   hasPermission(permission: string): boolean {
-    for(let cardPermissions of this.listaCardPermission){
-      if(cardPermissions.id_usuario === this.userId
-        && cardPermissions.permissions === permission){
-        return true
+    if(this.permissions.getCardPermissions(permission)){
+      return true;
     }
-  }
+    return false;
   }
 
   private getUsuarioLogado(): Observable<user> {
@@ -192,6 +187,7 @@ export class TarefaComponent implements OnInit {
       map((users) => users && users.find((user) => user.meuParametro === this.userId))
     );
   }
+
 }
 
 
