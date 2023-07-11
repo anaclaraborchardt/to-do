@@ -12,6 +12,8 @@ import { AuthGuardService } from 'src/services/auth-guard.service';
 import { ContaComponent } from 'src/conta/conta.component';
 import { LoginComponent } from 'src/login/login.component';
 import { TesteService } from 'src/services/teste.service';
+import { CardsRepository } from 'src/repositories/cards.repository';
+import { PropertiesRepository } from 'src/repositories/properties.repository';
 
 
 
@@ -34,7 +36,9 @@ import { TesteService } from 'src/services/teste.service';
   providers: [
     UserRepository,
     AuthGuardService,
-    TesteService
+    TesteService,
+    CardsRepository,
+    PropertiesRepository
   ],
   bootstrap: [AppComponent]
 })

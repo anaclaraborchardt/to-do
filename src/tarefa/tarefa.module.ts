@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { TarefaComponent } from './tarefa.component';
+import { CardsRepository } from 'src/repositories/cards.repository';
+import { PropertiesRepository } from 'src/repositories/properties.repository';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { TarefaComponent } from './tarefa.component';
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CardsRepository,
+  PropertiesRepository],
   bootstrap: [TarefaComponent]
 })
 export class AppModule { }

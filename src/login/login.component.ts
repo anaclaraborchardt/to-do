@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
       if (usuarioEncontrado) {
         alert('Login bem-sucedido');
         localStorage.setItem('logado', 'true');
+        localStorage.setItem('meuParametro', usuarioEncontrado.meuParametro);
 
         this.setCookie('logado', 'true');
 

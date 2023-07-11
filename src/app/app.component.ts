@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { cards } from 'src/models/users/cards';
 import { user } from 'src/models/users/user';
+import { CardsRepository } from 'src/repositories/cards.repository';
+import { PropertiesRepository } from 'src/repositories/properties.repository';
 import { UserRepository } from 'src/repositories/user.respository';
 import { TesteService } from 'src/services/teste.service';
 
@@ -62,34 +65,6 @@ ngOnInit() {
   }
   this.users = this.userRepository.getUsers();
     this.user = this.getUsuarioLogado();
-
-    // this.user.subscribe((loggedInUser) => {
-    //   if (loggedInUser) {
-    //     this.hasPermission('Add').subscribe((canAdd) => {
-    //       if (canAdd) {
-    //         console.log('Pode cadastrar');
-    //       } else {
-    //         console.log('Não pode cadastrar');
-    //       }
-    //     });
-
-    //     this.hasPermission('Edit').subscribe((canEdit) => {
-    //       if (canEdit) {
-    //         console.log('Pode editar');
-    //       } else {
-    //         console.log('Não pode editar');
-    //       }
-    //     });
-
-    //     this.hasPermission('Remove').subscribe((canRemove) => {
-    //       if (canRemove) {
-    //         console.log('Pode remover');
-    //       } else {
-    //         console.log('Não pode remover');
-    //       }
-    //     });
-    //   }
-    // });
 }
 
 removerUsuario(usuario: Pessoa): void {
@@ -122,16 +97,31 @@ adicionarCategoria(novaCategoria:string) {
 
 user: Observable<user>;
 
+
 private userId: string = 'diogo.defante';
 users: Observable<user[]>;
 
 constructor(private userRepository: UserRepository,
-  private testeService: TesteService
+  private testeService: TesteService, 
+   private cardRepository: CardsRepository,
+  private propertyRepository: PropertiesRepository
 ) {
   userRepository.getUsers().subscribe({
     next: (value) =>{
       console.log(value)
     }
+  });
+
+  cardRepository.getCards().subscribe({
+    next: (value) =>{
+       console.log(value)
+     }
+   });
+
+   propertyRepository.getProperties().subscribe({
+     next: (value) =>{
+       console.log(value)
+     }
   });
 
   testeService.getTema().subscribe({
@@ -141,54 +131,11 @@ constructor(private userRepository: UserRepository,
   })
 }
 
-// adicionarTarefa(): void {
-//   if (!this.hasPermission('Add')) {
-//     alert('Não pode cadastrar');
-//     return;
-//   }
-//   alert('Pode cadastrar');
-// }
-
-// adicionarPropriedade(): void {
-//   if (!this.hasPermission('Add')) {
-//     alert('Não pode cadastrar');
-//     return;
-//   }
-//   alert('Pode cadastrar');
-// }
-
-
-// editarTarefa(): void {
-//   if (!this.hasPermission('Edit')) {
-//     alert('Não pode cadastrar');
-//     return;
-//   }
-//   alert('Pode cadastrar');
-// }
-
-
-// removerTarefa(): void {
-//   if (!this.hasPermission('Remove')) {
-//     alert('Não pode cadastrar');
-//     return;
-//   }
-//   alert('Pode cadastrar');
-// }
-
-
-// hasPermission(permission: string): Observable<boolean> {
-//   return this.user.pipe(
-//     map((user) => user && user.cardPermissions && user.cardPermissions.includes(permission))
-//   );
-// }
-
 private getUsuarioLogado(): Observable<user> {
   return this.users.pipe(
     map((users) => users && users.find((user) => user.meuParametro === this.userId))
   );
 }
-
-
 }
 
 

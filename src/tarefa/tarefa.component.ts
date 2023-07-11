@@ -1,7 +1,12 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { cards } from 'src/models/users/cards';
+import { properties } from 'src/models/users/properties';
 import { user } from 'src/models/users/user';
+import { CardsRepository } from 'src/repositories/cards.repository';
+import { PropertiesRepository } from 'src/repositories/properties.repository';
 import { UserRepository } from 'src/repositories/user.respository';
 
 interface Propriedade {
@@ -45,51 +50,37 @@ export class TarefaComponent implements OnInit {
   private userId: string = 'diogo.defante';
   users: Observable<user[]>;
   canAddTask: boolean;
+  usuario: user[];
+  private listaPropertyPermission: properties[];
+  listaCardPermission: cards[];
 
-  constructor(private userRepository: UserRepository) {
-    this.users = this.userRepository.getUsers().pipe(
-      tap(users => console.log(users))
-    );
-  
-    this.user = this.getUsuarioLogado();
-    console.log(this.user);
-  
-    this.hasPermission('Add').subscribe(canAdd => {
-      this.canAddTask = canAdd;
-    });
+  constructor(private userRepository: UserRepository,
+    private cardRepository: CardsRepository,
+    private propertyRepository: PropertiesRepository,
+    private httpClient: HttpClient
+    ) {
+      userRepository.getUsers().subscribe({
+        next: (value) => {
+          this.usuario = value;
+        }
+      });
+      
+      propertyRepository.getProperties().subscribe({
+        next: (valor) => {
+          this.listaPropertyPermission = valor;
+        }
+      });
+
+      cardRepository.getCards().subscribe({
+        next: (valor) => {
+          this.listaCardPermission = valor;
+        }
+      });
   }
 
   ngOnInit() {
     this.users = this.userRepository.getUsers();
     this.user = this.getUsuarioLogado();
-
-    this.user.subscribe((loggedInUser) => {
-      if (loggedInUser) {
-        this.hasPermission('Add').subscribe((canAdd) => {
-          if (canAdd) {
-            console.log('Pode cadastrar');
-          } else {
-            console.log('Não pode cadastrar');
-          }
-        });
-
-        this.hasPermission('Edit').subscribe((canEdit) => {
-          if (canEdit) {
-            console.log('Pode editar');
-          } else {
-            console.log('Não pode editar');
-          }
-        });
-
-        this.hasPermission('Remove').subscribe((canRemove) => {
-          if (canRemove) {
-            console.log('Pode remover');
-          } else {
-            console.log('Não pode remover');
-          }
-        });
-      }
-    });
 
     const usuariosSalvos = localStorage.getItem('usuarios');
     if (usuariosSalvos) {
@@ -105,6 +96,8 @@ export class TarefaComponent implements OnInit {
     if (propriedadesSalvas) {
       this.listaPropriedades = JSON.parse(propriedadesSalvas);
     }
+
+    this.userId = localStorage.getItem('meuParametro');
   }
 
   cadastrarTarefa(): void {
@@ -185,10 +178,15 @@ export class TarefaComponent implements OnInit {
     this.indiceNovo = indice;
   }
 
-  hasPermission(permission: string): Observable<boolean> {
-    return this.user.pipe(
-      map((user) => user && user.cardPermissions && user.cardPermissions.includes(permission))
-    );
+  hasPermission(permission: string): boolean {
+    for(let cardPermissions of this.listaCardPermission){
+      for(let usuario of this.usuario){
+      if(cardPermissions.id_usuario === this.userId
+        && cardPermissions.permissions === permission){
+        return true
+      }
+    }
+  }
   }
 
   private getUsuarioLogado(): Observable<user> {

@@ -51,15 +51,15 @@ export class ContaComponent implements OnInit {
       propertiesPermissions: ''
     }
 
-    const properties: properties = {
-      id_usuario: this.meuParametro,
-      permissions: this.propertiesPermissions
-    }
+      const properties: properties = {
+       id_usuario: this.meuParametro,
+        permissions: this.propertiesPermissions
+     }
 
-    const cards: cards = {
-      id_usuario: this.meuParametro,
-      permissions: this.cardPermissions
-    }
+      const cards: cards = {
+        id_usuario: this.meuParametro,
+        permissions: this.cardPermissions
+     }
 
     this.users.forEach(element => {
       if (element.meuParametro == this.meuParametro) {
